@@ -1,0 +1,20 @@
+{
+  "name": "typescriptrevision",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@faker-js/faker": "^7.6.0",
+    "@types/google.maps": "^3.65.5",
+    "axios": "^1.19.0"
+  },
+  "devDependencies": {
+    "@types/node": "^26.2.0"
+  }
+}

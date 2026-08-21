@@ -1,0 +1,5 @@
+run a script:
+>> npx tsx script.ts
+
+try to use type inference any time you can.
+do not use default exort ever.
