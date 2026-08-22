@@ -11,10 +11,8 @@ import { MessagesService } from './messages.service';
 
 @Controller('messages')
 export class MessagesController {
-  messagesService: MessagesService;
-  constructor() {
-    this.messagesService = new MessagesService();
-  }
+  // do versopm
+  constructor(public messagesService: MessagesService) {}
   @Get()
   listMessages() {
     return this.messagesService.findAll();
@@ -23,7 +21,7 @@ export class MessagesController {
   @Get('/:id')
   async getMessages(@Param('id') id: string) {
     const message = await this.messagesService.findOne(id);
-    console.log(message)
+    console.log(message);
     if (!message) throw new NotFoundException('Message not found');
     return message;
   }

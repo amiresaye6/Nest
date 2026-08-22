@@ -1,6 +1,8 @@
 import { readFile, writeFile } from 'fs/promises';
 import { randomUUID } from 'crypto';
+import { Injectable } from '@nestjs/common';
 
+@Injectable()
 export class MessagesRepository {
   private fileName = 'messagesFileDb.json';
 

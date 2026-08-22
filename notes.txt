@@ -1,2 +1,10 @@
 creat a new nest project
 >> nest new projectName
+
+create a new module
+note >> do not add the word module to teh moduel name, it will be added automatically.
+>> nest generate module moduleName
+
+create a new controller
+note >> the --flat will put all the files in the same level, withotu an extra controllers/ directory.
+>> nest generate controller folderName/controllerName --flat
