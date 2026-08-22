@@ -1,0 +1,2 @@
+creat a new nest project
+>> nest new projectName
