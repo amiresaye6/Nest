@@ -8,3 +8,9 @@ note >> do not add the word module to teh moduel name, it will be added automati
 create a new controller
 note >> the --flat will put all the files in the same level, withotu an extra controllers/ directory.
 >> nest generate controller folderName/controllerName --flat
+
+interceptors are like middlewares, can be applied to one handler, an entire controller, or globally to intercept each and every incomming requist.
+can be done by makgin a class with a wordInterceptor na me. with a method called specifically intercept so it is called automatically.
+prototype of it
+                <info about the req>       <ref to the req handler>
+intercept(context: ExecutionContext, next: callHandler)
