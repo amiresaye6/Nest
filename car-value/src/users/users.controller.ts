@@ -7,6 +7,8 @@ import {
   Post,
   Patch,
   Query,
+  UseInterceptors,
+  ClassSerializerInterceptor,
 } from '@nestjs/common';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UsersService } from './users.service';
@@ -20,6 +22,7 @@ export class UsersController {
     this.userService.create(body.email, body.password);
   }
 
+  @UseInterceptors(ClassSerializerInterceptor)
   @Get('/users/:id')
   findUser(@Param('id') id: string) {
     // any value from the url will be streing, so you need to make sure to convert any numbers you want to pass.
