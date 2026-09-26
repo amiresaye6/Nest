@@ -1,6 +1,21 @@
-import { CallHandler, ExecutionContext, NestInterceptor } from '@nestjs/common';
+import {
+  CallHandler,
+  ExecutionContext,
+  NestInterceptor,
+  UseInterceptors,
+} from '@nestjs/common';
 import { plainToClass } from 'class-transformer';
 import { map, Observable } from 'rxjs';
+
+// this interface is to make sure we pass a class "any class for now" to our serializer, so if user passes string, it will refuse to work.
+interface ClassConstructor {
+  new (...args: any[]): {};
+}
+
+// our decorator
+export function Serialize(dto: ClassConstructor) {
+  return UseInterceptors(new SerializeInterceptor(dto));
+}
 
 export class SerializeInterceptor implements NestInterceptor {
   constructor(private dto: any) {}
