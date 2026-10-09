@@ -8,6 +8,7 @@ import {
   Patch,
   Query,
   Session,
+  UseInterceptors,
 } from '@nestjs/common';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UsersService } from './users.service';
@@ -15,9 +16,13 @@ import { UpdateUserDto } from './dtos/update-user.dto';
 import { Serialize } from 'src/interceptors/serialize.interceptor';
 import { UserDto } from './dtos/user.dto';
 import { AuthService } from './auth.service';
+import { CurrentUserInterceptor } from './interceptors/current-user.interceptor';
+import { CurrentUser } from './decorators/current-user.decorator';
+import { User } from './user.enntity';
 
 @Controller('auth')
 @Serialize(UserDto)
+@UseInterceptors(CurrentUserInterceptor)
 export class UsersController {
   constructor(
     private userService: UsersService,
@@ -38,8 +43,8 @@ export class UsersController {
   }
 
   @Get('/whoami')
-  async whoAmI(@Session() session: any) {
-    const user = await this.userService.findOne(session.userId);
+  async whoAmI(@CurrentUser() user: User) {
+    console.log(user)
     return user;
   }
 

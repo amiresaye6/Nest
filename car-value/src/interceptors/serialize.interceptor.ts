@@ -24,7 +24,7 @@ export class SerializeInterceptor implements NestInterceptor {
     context: ExecutionContext,
     next: CallHandler<any>,
   ): Observable<any> | Promise<Observable<any>> {
-    // run sumething before a requist is handled by the req handler
+    // run sumething before a request is handled by the req handler
 
     console.log('I am running before the handler, context: ', context);
 
