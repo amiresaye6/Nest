@@ -8,6 +8,7 @@ import {
   Patch,
   Query,
   Session,
+  UseGuards,
   // UseInterceptors,
 } from '@nestjs/common';
 import { CreateUserDto } from './dtos/create-user.dto';
@@ -19,9 +20,13 @@ import { AuthService } from './auth.service';
 // import { CurrentUserInterceptor } from './interceptors/current-user.interceptor';
 import { CurrentUser } from './decorators/current-user.decorator';
 import { User } from './user.enntity';
+import { AuthGuard } from 'src/guards/auth.guarde';
 
 @Controller('auth')
 @Serialize(UserDto)
+// if we add this line, we will add the guard to all handlers in this controller.
+// @UseGuards(AuthGuard)
+
 // @UseInterceptors(CurrentUserInterceptor)
 export class UsersController {
   constructor(
@@ -43,8 +48,8 @@ export class UsersController {
   }
 
   @Get('/whoami')
+  @UseGuards(AuthGuard)
   async whoAmI(@CurrentUser() user: User) {
-    console.log(user)
     return user;
   }
 
