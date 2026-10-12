@@ -1,0 +1,17 @@
+services:
+  bookmark-dev-db-pg:
+    image: postgres:16-alpine
+    container_name: bookmark-db-container
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: amiralsayed
+      POSTGRES_PASSWORD: password123
+      POSTGRES_DB: bookmarksystemdb
+    ports:
+      - 5432:5432
+    volumes:
+      - bookmark-db-volume:/var/lib/postgresql/data
+
+volumes:
+  bookmark-db-volume:
+    driver: local

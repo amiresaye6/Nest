@@ -1,0 +1,9 @@
+prisma notes
+first to install prisma, we need the cli tool and the db client;
+
+npm install prisma --save-dev
+npm install @prisma/client
+
+second we need to init the prisma configuration
+
+npx prisma init
