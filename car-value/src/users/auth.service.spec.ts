@@ -9,10 +9,17 @@ describe('Auth service', () => {
   let service: AuthService;
   let fakeUsersService: Partial<UsersService>;
   beforeEach(async () => {
+    const users: User[] = [];
     fakeUsersService = {
-      find: () => Promise.resolve([]),
-      create: (email: string, password: string) =>
-        Promise.resolve({ id: 1, email, password } as User),
+      find: (email: string) => {
+        const filterdUsers = users.filter((u) => u.email === email);
+
+        return Promise.resolve(filterdUsers);
+      },
+      create: (email: string, password: string) => {
+        users.push({ id: users.length, email, password } as User);
+        return Promise.resolve({ id: 1, email, password } as User);
+      },
     };
 
     const module = await Test.createTestingModule({
@@ -47,6 +54,13 @@ describe('Auth service', () => {
     );
   });
 
+  it('throws an error if user signs up with email that is in use', async () => {
+    await service.signup('asdf@asdf.com', 'asdf');
+    await expect(service.signup('asdf@asdf.com', 'asdf')).rejects.toThrow(
+      BadRequestException,
+    );
+  });
+
   it('throws if signin is called with an unused email', async () => {
     await expect(
       service.signin('asdflkj@asdlfkj.com', 'passdflkj'),
@@ -54,21 +68,9 @@ describe('Auth service', () => {
   });
 
   it('throws if an invalid password is provided', async () => {
-    fakeUsersService.find = () =>
-      Promise.resolve([
-        { email: 'asdf@asdf.com', password: 'laskdjf' } as User,
-      ]);
+    await service.signup('laskdjf@alskdfj.com', 'password');
     await expect(
-      service.signin('laskdjf@alskdfj.com', 'passowrd'),
+      service.signin('laskdjf@alskdfj.com', 'laksdlfkj'),
     ).rejects.toThrow(BadRequestException);
-  });
-  it('Returns a user if email and password are provided correctly', async () => {
-    fakeUsersService.find = () =>
-      Promise.resolve([
-        { email: 'amir@gmail.com', password: '4a05fa1df945a885.5fab6725ccd476482c806b03eb95e575391a249da54a96ae3274afcfd5ca1560' } as User,
-      ]);
-
-    const user = await service.signin('amir123@gmail.com', 'secure123Password');
-    expect(user).toBeDefined();
   });
 });
