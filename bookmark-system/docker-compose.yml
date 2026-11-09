@@ -11,7 +11,21 @@ services:
       - 5433:5432
     volumes:
       - bookmark-db-volume-v2:/var/lib/postgresql/data
+  bookmark-test-db-pg:
+    image: postgres:16-alpine
+    container_name: bookmark-db-container-test
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: amiralsayed
+      POSTGRES_PASSWORD: password123
+      POSTGRES_DB: bookmarksystemdb
+    ports:
+      - 5435:5432
+    volumes:
+      - bookmark-db-volume-v2-test:/var/lib/postgresql/data
 
 volumes:
   bookmark-db-volume-v2:
+    driver: local
+  bookmark-db-volume-v2-test:
     driver: local
