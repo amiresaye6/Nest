@@ -13,8 +13,9 @@ export class UserController {
   getMe(@Getuser() user: User) {
     return user;
   }
-
+  
   @Patch()
+  @UseGuards(JwtGuard)
   editUser(@Getuser() user: User, dto: EditUserDto) {
     return this.userService.editUser(user.id, dto);
   }
