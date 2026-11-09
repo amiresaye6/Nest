@@ -13,4 +13,12 @@ export class PrismaService extends PrismaClient {
     });
     super({ adapter });
   }
+
+  // custom methord to clean up db for e2e testing.
+  cleanDB() {
+    return  this.$transaction([
+      this.bookmark.deleteMany(),
+      this.user.deleteMany()
+    ])
+  }
 }
